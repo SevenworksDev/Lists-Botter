@@ -8,7 +8,8 @@ listID = input("List ID: ")
 liketype = input("Like/Dislike (0/1): ")
 
 def icedcave_plz_unblock_me(bozo):
-    with open(bozo, 'r') as file: proxies = [line.strip() for line in file]
+    with open(bozo, 'r') as file:
+        proxies = [line.strip() for line in file]
     return proxies
 
 def get_proxy(proxies):
@@ -40,7 +41,7 @@ def generate_chk(values: [int, str] = [], key: str = "", salt: str = "") -> str:
     values.append(salt)
     string = ("").join(map(str, values))
     hashed = hashlib.sha1(string.encode()).hexdigest()
-    xored = xor_cipher(hashed, key)
+    xored = xor(hashed, key)
     final = base64.urlsafe_b64encode(xored.encode()).decode()
     return final
 
@@ -53,26 +54,44 @@ def generate_uuid(parts: [int] = (8, 4, 4, 4, 10)) -> str:
 def generate_udid(start: int = 100_000, end: int = 100_000_000) -> str:
     return "S" + str(random.randint(start, end))
 
-def bot():
-  for i in range(len(gjuser)):
-    proxy = get_proxy(proxies)
-    proxies = { "http": proxy, "https": proxy }
+def bot(proxy):
+    rand = random.randint(0, len(gjuser) - 1)
+    uuid = generate_uuid()
+    udid = generate_udid()
+    rs = generate_rs(10)
     data = {
         "gameVersion": "20",
         "binaryVersion": "35",
         "gdw": "0",
-        "accountID": gjaccid[i],
-        "gjp": gjp_encrypt(gjpass[i]),
-        "udid": generate_udid(),
-        "uuid": generate_uuid(),
+        "accountID": gjaccid[rand],
+        "gjp": gjp_encrypt(gjpass[rand]),
+        "udid": udid,
+        "uuid": uuid,
         "itemID": listID,
         "like": liketype,
         "type": "4",
         "secret": "Wmfd2893gb7",
-        "special": "0"
+        "special": "0",
+        "rs": rs,
+        "chk": generate_chk(["0", listID, liketype, "4", rs, gjaccid[rand], udid, uuid], "58281", "ysg6pUrtjn0J")
     }
-    req = requests.post("http://www.boomlings.com/database/likeGJItem211.php", data=data, headers={"User-Agent":""}, proxies=proxies)
+    try:
+      req = requests.post("http://www.boomlings.com/database/likeGJItem211.php", data=data, headers={"User-Agent": ""}, proxies=proxy)
+      if req.text == "1":
+          print(f"[SUCCESS]: {str(gjuser[rand])} liked by {str(proxy)}")
+      else:
+          error_keywords = ["</", "Cloudflare", "error code:", "nginx", "apache"]
+          if any(keyword in req.text for keyword in error_keywords):
+              pass
+          else:
+              print(f"[ERROR IN PROXY]: {req.text}")
+    except:
+      pass
 
 while True:
-  threading.Thread(target=bot).start()
-  time.sleep(2)
+  try:
+    proxy = {"http": get_proxy(proxies), "https": get_proxy(proxies)}
+    threading.Thread(target=bot, args=(proxy,)).start()
+    time.sleep(0.5)
+  except:
+    pass
