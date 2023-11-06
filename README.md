@@ -1,2 +1,3 @@
-# Lists-Botter
-Lists Likebot/Dislikebot tool for Geometry Dash 2.2, How to destroy 2.2 before release.
+# Lists-Botter (WIP, dont use yet)
+we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite we love fortnite   
+<img src="https://files.catbox.moe/y1ihio.gif">
